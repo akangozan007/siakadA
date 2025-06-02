@@ -40,7 +40,7 @@ class Dosen extends ResourceController
             // Decode token JWT
             $decoded = JWT::decode($jwtToken, new Key($secretKey, 'HS256'));
 
-            if ($decoded->role == "dosen" || $decoded->role == "admin" ) {
+            if ($decoded->role == "admin" ) {
                 // data khusus table mahasiswa
                 $dosenModel = new DosenModel();
                 $data = $dosenModel->findAll();
@@ -48,7 +48,7 @@ class Dosen extends ResourceController
                 $sqlDosenAll = new DosenModel();
                 $data2['dosen'] = $sqlDosenAll->getDosenFull();
                 $data = [$data, $data2];
-                // return $this->respond($data, 200);
+                return $this->respond($data, 200);
                 return $this->respond($data, 200);
 
             }else {

@@ -13,7 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 import axios from "axios";
 
 // admin Mahasiswa
-import Mahasiswa from '../components/Mahasiswa';
+import DosenMahasiswa from '../components/DosenMahasiswa';
 
 import {
   chartsCustomizations,
@@ -109,7 +109,7 @@ export default function AdminMahasiswa(props) {
             }}
           >
             <Header />
-            <Mahasiswa />
+            <DosenMahasiswa />
           </Stack>
         </Box>
       </Box>

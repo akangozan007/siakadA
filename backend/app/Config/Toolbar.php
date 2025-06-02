@@ -23,6 +23,7 @@ use CodeIgniter\Debug\Toolbar\Collectors\Views;
  */
 class Toolbar extends BaseConfig
 {
+    public bool $enabled = false; // <--- Tambahkan ini untuk menonaktifkan toolbar
     /**
      * --------------------------------------------------------------------------
      * Toolbar Collectors

@@ -16,23 +16,23 @@ export default function MahasiswaDataGrid() {
   }
 
   useEffect(() => {
-    async function getAllMahasiswa() {
+    async function getAllDosen() {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:8080/api/mahasiswa', {
+        const response = await axios.get('http://localhost:8080/api/dosen', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const mahasiswaAllData = response.data;
-        localStorage.setItem('mahasiswaAllData', JSON.stringify(mahasiswaAllData));
+        const dosenAllData = response.data;
+        localStorage.setItem('dosenAllData', JSON.stringify(dosenAllData));
 
-        const rowsData = mahasiswaAllData[1].mahasiswa.map((mhs) => ({
-          id: mhs.mahasiswa_id,
-          nim: mhs.nim,
-          nama: mhs.nama_lengkap,
-          email: mhs.email,
-          prodi: mhs.nama_prodi,
-          fakultas: mhs.nama_fakultas,
+        const rowsData = dosenAllData[1].dosen.map((dsn) => ({
+          id: dsn.dosen_id,
+          nidn: dsn.nidn,
+          nama: dsn.nama_lengkap,
+          email: dsn.email,
+          prodi: dsn.nama_prodi,
+          fakultas: dsn.nama_fakultas,
           action: 'edit',
         }));
 
@@ -44,7 +44,7 @@ export default function MahasiswaDataGrid() {
       }
     }
 
-    getAllMahasiswa();
+    getAllDosen();
 
     const handleResize = () => {
       setPageSize(getPageSize(window.innerWidth));
@@ -61,7 +61,7 @@ export default function MahasiswaDataGrid() {
       width: 70,
       renderCell: (params) => params.api.getRowIndexRelativeToVisibleRows(params.id) + 1,
     },
-    { field: 'nim', headerName: 'NIM', flex: 1, minWidth: 100 },
+    { field: 'nidn', headerName: 'NIDN', flex: 1, minWidth: 100 },
     { field: 'nama', headerName: 'Nama Lengkap', flex: 1.5, minWidth: 150 },
     { field: 'email', headerName: 'Email', flex: 1.5, minWidth: 200 },
     { field: 'prodi', headerName: 'Program Studi', flex: 1, minWidth: 150 },
