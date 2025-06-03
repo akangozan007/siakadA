@@ -43,11 +43,16 @@ class Prodi extends ResourceController
             if ($decoded->role == "admin") {
                     # code...
                 
-                $fakultasModel = new ProdiModel();
-                $data = $fakultasModel->findAll();
-
+                    $prodiModel = new ProdiModel();
+                    $data['data_prodi'] = $prodiModel->findAll();
+                    // data innerJoin 
+                    $sqlProdiAll = new ProdiModel();
+                    $data2['prodi'] = $sqlProdiAll->getProdiFull();
+                    // output data
+                    $dataBaru = [$data, $data2];
+                
                 // return $this->respond($data, 200);
-                return $this->respond($data, 200);
+                return $this->respond($dataBaru, 200);
 
             }else {
                 return $this->respond(['message'=>'Anda tidak berhak mengakses informasi ini'], 403);

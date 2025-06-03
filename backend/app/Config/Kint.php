@@ -23,6 +23,7 @@ class Kint
     | Global Settings
     |--------------------------------------------------------------------------
     */
+    public $enabledMode = false; // Nonaktifkan semua output Kint
 
     /**
      * @var list<class-string<ConstructablePluginInterface>|ConstructablePluginInterface>|null

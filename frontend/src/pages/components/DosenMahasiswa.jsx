@@ -5,12 +5,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Copyright from '../user/internals/components/Copyright';
 import ChartUserByCountry from './ChartUserByCountry';
+import ChartProdiByMahasiswa from './ChartProdiByMahasiswa';
+import ChartProdiByDosen from './ChartProdiByDosen';
 import CustomizedTreeView from './CustomizedTreeView';
 import MahasiswaDataGrid from './MahasiswaDataGrid';
 import DosenDataGrid from './DosenDataGrid';
-import HighlightedCard from './HighlightedCard';
-import PageViewsBarChart from './PageViewsBarChart';
-import SessionsChart from './SessionsChart';
 import StatCard from './StatCard';
 import axios from 'axios';
 
@@ -40,7 +39,10 @@ getProdi();
 // console.log(JSON.stringify(fakultasData));
 prodiData = JSON.parse(localStorage.getItem('prodiData') || '[]');
 // console.log(fakultasData.length);
-let jumlahProdi = prodiData.length;
+let jumlahProdi = prodiData[0]["data_prodi"].length;
+// let jumlahMahasiswaByProdi = prodiData[1].length;
+
+console.log("Jumlah Prodi : "+jumlahProdi);
 
 
 // get data mahasiswa
@@ -70,7 +72,7 @@ getMahasiswa();
 // console.log(JSON.stringify(fakultasData));
 mahasiswaData = JSON.parse(localStorage.getItem('mahasiswaData') || '[]');
 // console.log(fakultasData.length);
-let jumlahMahasiswa = mahasiswaData.length;
+let jumlahMahasiswa = mahasiswaData[0].length+1;
 
 
 // get data fakultas
@@ -98,7 +100,7 @@ getDosen();
 // console.log(JSON.stringify(fakultasData));
 dosenData = JSON.parse(localStorage.getItem('dosenData') || '[]');
 // console.log(fakultasData.length);
-let jumlahDosen = dosenData.length;
+let jumlahDosen = dosenData[0].length;
 
 // get data dosen
 
@@ -202,8 +204,8 @@ export default function DosenMahasiswa() {
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
-            <CustomizedTreeView />
-            <ChartUserByCountry />
+            {/* <CustomizedTreeView /> */}
+            <ChartProdiByMahasiswa totalData={jumlahMahasiswa} />
           </Stack>
         </Grid>
       </Grid>
@@ -218,7 +220,7 @@ export default function DosenMahasiswa() {
         <Grid size={{ xs: 12, lg: 3 }}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
             <CustomizedTreeView />
-            <ChartUserByCountry />
+            <ChartProdiByDosen totalData={jumlahDosen}/>
           </Stack>
         </Grid>
       </Grid>

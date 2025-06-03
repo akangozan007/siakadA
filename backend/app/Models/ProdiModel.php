@@ -13,6 +13,16 @@ class ProdiModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama_prodi'];
+    protected $allowedFields    = ['nama_prodi', 'jenjang'];
+
+    // Inner Join Table prodi dan mahasiswa
+    public function getProdiFull()
+    {
+        return $this->db->table('prodi')
+            ->select('*')
+            ->join('mahasiswa', 'mahasiswa.prodi_id = prodi.prodi_id')
+            ->get()
+            ->getResult();
+    }
 
 }
