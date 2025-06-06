@@ -1,0 +1,496 @@
+{
+    "auto_close": false,
+    "auto_open": false,
+    "auto_start": false,
+    "drawing_grid_size": 25,
+    "grid_size": 75,
+    "name": "ROUTING_STATIC-1",
+    "project_id": "d1f3cc44-4831-4b8c-acdf-b5deb9d45921",
+    "revision": 9,
+    "scene_height": 1000,
+    "scene_width": 2000,
+    "show_grid": false,
+    "show_interface_labels": false,
+    "show_layers": false,
+    "snap_to_grid": false,
+    "supplier": null,
+    "topology": {
+        "computes": [],
+        "drawings": [
+            {
+                "drawing_id": "b586014f-cec4-4bf6-b2f4-aca6bc6389f4",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"177\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">ROUTING STATIC MIKROTIK</text></svg>",
+                "x": -87,
+                "y": -170,
+                "z": 2
+            },
+            {
+                "drawing_id": "b979f918-c243-4ec6-ac64-4e4538a80ce9",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"165\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">ether1 : 172.31.30.1/30</text></svg>",
+                "x": -341,
+                "y": -78,
+                "z": 2
+            },
+            {
+                "drawing_id": "712f0695-170a-4170-b835-a2e190cbb389",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"165\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">ether1 : 172.31.30.2/30</text></svg>",
+                "x": -176,
+                "y": -115,
+                "z": 2
+            },
+            {
+                "drawing_id": "7baf7cee-07e8-4014-99dc-7a06d410bdfc",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"161\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">ether2: 172.41.40.2/30</text></svg>",
+                "x": 28,
+                "y": -116,
+                "z": 2
+            },
+            {
+                "drawing_id": "c45b0e0f-b2e9-4a3b-b23d-897f6533fe54",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"161\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">ether2: 192.168.1.1/24</text></svg>",
+                "x": 263,
+                "y": 6,
+                "z": 2
+            },
+            {
+                "drawing_id": "392f961b-66af-458b-8286-d1599a921c57",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"161\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">ether1: 172.41.40.1/30</text></svg>",
+                "x": 201,
+                "y": -74,
+                "z": 2
+            },
+            {
+                "drawing_id": "fd231871-027d-4455-8503-b6dcdbdf7b66",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"161\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">ether3: 192.168.0.1/24</text></svg>",
+                "x": -2,
+                "y": 41,
+                "z": 2
+            },
+            {
+                "drawing_id": "0b9677f9-36b6-4829-87ed-dbb0deab5978",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"108\" height=\"24\"><text font-family=\"TypeWriter\" font-size=\"10.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">192.168.3.1/24</text></svg>",
+                "x": -414,
+                "y": -12,
+                "z": 2
+            }
+        ],
+        "links": [
+            {
+                "filters": {},
+                "link_id": "2bcc5dee-1f1a-42ef-bc79-d453708dbda2",
+                "link_style": {},
+                "nodes": [
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e0",
+                            "x": 71,
+                            "y": 12
+                        },
+                        "node_id": "f5eac7cb-37f0-4b60-b079-36b9d93c733b",
+                        "port_number": 0
+                    },
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e0",
+                            "x": -5,
+                            "y": 31
+                        },
+                        "node_id": "20efa181-71d9-4355-b8d7-6ecba7dc2ef0",
+                        "port_number": 0
+                    }
+                ],
+                "suspend": false
+            },
+            {
+                "filters": {},
+                "link_id": "834b1dc2-b36a-4616-a492-5e8487b4ea46",
+                "link_style": {},
+                "nodes": [
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e0",
+                            "x": 41,
+                            "y": -9
+                        },
+                        "node_id": "4c9799e6-287f-4570-ac76-2622c1184d9a",
+                        "port_number": 0
+                    },
+                    {
+                        "adapter_number": 1,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e1",
+                            "x": 24,
+                            "y": 61
+                        },
+                        "node_id": "f5eac7cb-37f0-4b60-b079-36b9d93c733b",
+                        "port_number": 0
+                    }
+                ],
+                "suspend": false
+            },
+            {
+                "filters": {},
+                "link_id": "4b23a87e-27e9-4d43-9fe5-a0a73ef0750b",
+                "link_style": {},
+                "nodes": [
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e0",
+                            "x": 30,
+                            "y": -10
+                        },
+                        "node_id": "ade320e2-a9fa-44c9-9e83-f520bdd01480",
+                        "port_number": 0
+                    },
+                    {
+                        "adapter_number": 2,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e2",
+                            "x": 35,
+                            "y": 61
+                        },
+                        "node_id": "20efa181-71d9-4355-b8d7-6ecba7dc2ef0",
+                        "port_number": 0
+                    }
+                ],
+                "suspend": false
+            },
+            {
+                "filters": {},
+                "link_id": "9f2370d6-e221-4e59-9a1e-b267e82d75d0",
+                "link_style": {},
+                "nodes": [
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e0",
+                            "x": 18,
+                            "y": -8
+                        },
+                        "node_id": "189e10fa-4434-44d0-b2f1-9df6045b127f",
+                        "port_number": 0
+                    },
+                    {
+                        "adapter_number": 1,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e1",
+                            "x": 46,
+                            "y": 59
+                        },
+                        "node_id": "5789c759-9d6f-4ae1-b37d-a0b5d188c37b",
+                        "port_number": 0
+                    }
+                ],
+                "suspend": false
+            },
+            {
+                "filters": {},
+                "link_id": "77d711c3-f544-4918-bb44-153d771b0e36",
+                "link_style": {},
+                "nodes": [
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e0",
+                            "x": -5,
+                            "y": 11
+                        },
+                        "node_id": "5789c759-9d6f-4ae1-b37d-a0b5d188c37b",
+                        "port_number": 0
+                    },
+                    {
+                        "adapter_number": 1,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e1",
+                            "x": 71,
+                            "y": 32
+                        },
+                        "node_id": "20efa181-71d9-4355-b8d7-6ecba7dc2ef0",
+                        "port_number": 0
+                    }
+                ],
+                "suspend": false
+            }
+        ],
+        "nodes": [
+            {
+                "compute_id": "local",
+                "console": 5004,
+                "console_auto_start": false,
+                "console_type": "telnet",
+                "custom_adapters": [],
+                "first_port_name": "",
+                "height": 45,
+                "label": {
+                    "rotation": 0,
+                    "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                    "text": "R1",
+                    "x": 20,
+                    "y": -25
+                },
+                "locked": false,
+                "name": "R1",
+                "node_id": "f5eac7cb-37f0-4b60-b079-36b9d93c733b",
+                "node_type": "virtualbox",
+                "port_name_format": "Ethernet{0}",
+                "port_segment_size": 0,
+                "properties": {
+                    "adapter_type": "Intel PRO/1000 MT Desktop (82540EM)",
+                    "adapters": 4,
+                    "headless": false,
+                    "linked_clone": true,
+                    "on_close": "power_off",
+                    "ram": 300,
+                    "usage": "",
+                    "use_any_adapter": true,
+                    "vmname": "R1"
+                },
+                "symbol": ":/symbols/classic/router.svg",
+                "template_id": "6d5bad78-584c-463a-82f2-a2cc10993112",
+                "width": 66,
+                "x": -273,
+                "y": -14,
+                "z": 1
+            },
+            {
+                "compute_id": "local",
+                "console": 5005,
+                "console_auto_start": false,
+                "console_type": "telnet",
+                "custom_adapters": [],
+                "first_port_name": "",
+                "height": 45,
+                "label": {
+                    "rotation": 0,
+                    "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                    "text": "R2",
+                    "x": 20,
+                    "y": -25
+                },
+                "locked": false,
+                "name": "R2",
+                "node_id": "20efa181-71d9-4355-b8d7-6ecba7dc2ef0",
+                "node_type": "virtualbox",
+                "port_name_format": "Ethernet{0}",
+                "port_segment_size": 0,
+                "properties": {
+                    "adapter_type": "Intel PRO/1000 MT Desktop (82540EM)",
+                    "adapters": 4,
+                    "headless": false,
+                    "linked_clone": true,
+                    "on_close": "power_off",
+                    "ram": 300,
+                    "usage": "",
+                    "use_any_adapter": true,
+                    "vmname": "R2"
+                },
+                "symbol": ":/symbols/classic/router.svg",
+                "template_id": "6d5bad78-584c-463a-82f2-a2cc10993112",
+                "width": 66,
+                "x": -39,
+                "y": -72,
+                "z": 1
+            },
+            {
+                "compute_id": "local",
+                "console": 5006,
+                "console_auto_start": false,
+                "console_type": "telnet",
+                "custom_adapters": [],
+                "first_port_name": "",
+                "height": 45,
+                "label": {
+                    "rotation": 0,
+                    "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                    "text": "R3",
+                    "x": 20,
+                    "y": -25
+                },
+                "locked": false,
+                "name": "R3",
+                "node_id": "5789c759-9d6f-4ae1-b37d-a0b5d188c37b",
+                "node_type": "virtualbox",
+                "port_name_format": "Ethernet{0}",
+                "port_segment_size": 0,
+                "properties": {
+                    "adapter_type": "Intel PRO/1000 MT Desktop (82540EM)",
+                    "adapters": 4,
+                    "headless": false,
+                    "linked_clone": true,
+                    "on_close": "power_off",
+                    "ram": 300,
+                    "usage": "",
+                    "use_any_adapter": true,
+                    "vmname": "R3"
+                },
+                "symbol": ":/symbols/classic/router.svg",
+                "template_id": "6d5bad78-584c-463a-82f2-a2cc10993112",
+                "width": 66,
+                "x": 180,
+                "y": -13,
+                "z": 1
+            },
+            {
+                "compute_id": "local",
+                "console": null,
+                "console_auto_start": false,
+                "console_type": "none",
+                "custom_adapters": [],
+                "first_port_name": "",
+                "height": 59,
+                "label": {
+                    "rotation": 0,
+                    "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                    "text": "DEBIAN1",
+                    "x": 1,
+                    "y": -25
+                },
+                "locked": false,
+                "name": "DEBIAN1",
+                "node_id": "4c9799e6-287f-4570-ac76-2622c1184d9a",
+                "node_type": "virtualbox",
+                "port_name_format": "Ethernet{0}",
+                "port_segment_size": 0,
+                "properties": {
+                    "adapter_type": "Intel PRO/1000 MT Desktop (82540EM)",
+                    "adapters": 1,
+                    "headless": false,
+                    "linked_clone": true,
+                    "on_close": "power_off",
+                    "ram": 1024,
+                    "usage": "",
+                    "use_any_adapter": true,
+                    "vmname": "DEBIAN1"
+                },
+                "symbol": ":/symbols/vbox_guest.svg",
+                "template_id": "3e5df0b9-eb36-4219-b9aa-01f378b75b61",
+                "width": 65,
+                "x": -305,
+                "y": 125,
+                "z": 1
+            },
+            {
+                "compute_id": "local",
+                "console": null,
+                "console_auto_start": false,
+                "console_type": "none",
+                "custom_adapters": [],
+                "first_port_name": "",
+                "height": 59,
+                "label": {
+                    "rotation": 0,
+                    "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                    "text": "DEBIAN2",
+                    "x": 1,
+                    "y": -25
+                },
+                "locked": false,
+                "name": "DEBIAN2",
+                "node_id": "ade320e2-a9fa-44c9-9e83-f520bdd01480",
+                "node_type": "virtualbox",
+                "port_name_format": "Ethernet{0}",
+                "port_segment_size": 0,
+                "properties": {
+                    "adapter_type": "Intel PRO/1000 MT Desktop (82540EM)",
+                    "adapters": 1,
+                    "headless": false,
+                    "linked_clone": true,
+                    "on_close": "power_off",
+                    "ram": 1024,
+                    "usage": "",
+                    "use_any_adapter": true,
+                    "vmname": "DEBIAN2"
+                },
+                "symbol": ":/symbols/vbox_guest.svg",
+                "template_id": "3e5df0b9-eb36-4219-b9aa-01f378b75b61",
+                "width": 65,
+                "x": -27,
+                "y": 132,
+                "z": 1
+            },
+            {
+                "compute_id": "local",
+                "console": null,
+                "console_auto_start": false,
+                "console_type": "none",
+                "custom_adapters": [],
+                "first_port_name": "",
+                "height": 59,
+                "label": {
+                    "rotation": 0,
+                    "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                    "text": "DEBIAN3",
+                    "x": 1,
+                    "y": -25
+                },
+                "locked": false,
+                "name": "DEBIAN3",
+                "node_id": "189e10fa-4434-44d0-b2f1-9df6045b127f",
+                "node_type": "virtualbox",
+                "port_name_format": "Ethernet{0}",
+                "port_segment_size": 0,
+                "properties": {
+                    "adapter_type": "Intel PRO/1000 MT Desktop (82540EM)",
+                    "adapters": 1,
+                    "headless": false,
+                    "linked_clone": true,
+                    "on_close": "power_off",
+                    "ram": 1024,
+                    "usage": "",
+                    "use_any_adapter": true,
+                    "vmname": "DEBIAN3"
+                },
+                "symbol": ":/symbols/vbox_guest.svg",
+                "template_id": "3e5df0b9-eb36-4219-b9aa-01f378b75b61",
+                "width": 65,
+                "x": 236,
+                "y": 131,
+                "z": 1
+            }
+        ]
+    },
+    "type": "topology",
+    "variables": null,
+    "version": "2.2.52",
+    "zoom": 71
+}

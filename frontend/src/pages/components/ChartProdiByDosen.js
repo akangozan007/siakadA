@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react'; // pastikan ini ada di atas
-import Button from '@mui/material/Button'; // pastikan ini juga diimport
+import { useState } from 'react'; 
+import Button from '@mui/material/Button';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
 import { styled } from '@mui/material/styles';
