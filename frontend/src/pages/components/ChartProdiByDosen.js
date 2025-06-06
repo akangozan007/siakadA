@@ -1,5 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react'; // pastikan ini ada di atas
+import Button from '@mui/material/Button'; // pastikan ini juga diimport
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
 import { styled } from '@mui/material/styles';
@@ -17,39 +19,48 @@ import {
   GlobeFlag,
 } from '../user/internals/components/CustomIcons';
 
-const data = [
-  { label: 'India', value: 50000 },
-  { label: 'USA', value: 35000 },
-  { label: 'Brazil', value: 10000 },
-  { label: 'Other', value: 5000 },
-];
 
-const countries = [
-  {
-    name: 'India',
-    value: 50,
+// Ambil semua data dosen
+let semuadataDosen = JSON.parse(localStorage.getItem('dosenAllData'));
+semuadataDosen = semuadataDosen[1]['dosen'];
+// console.log("Semua data Dosen:", semuadataDosen);
+
+const totalDosen = semuadataDosen.length;
+// console.log(`Total dosen: ${totalDosen}`);
+
+// Hitung jumlah dosen per prodi
+const countByProdi = {};
+semuadataDosen.forEach(entry => {
+  const prodi = entry.nama_prodi;
+  countByProdi[prodi] = (countByProdi[prodi] || 0) + 1;
+});
+
+// Ambil semua prodi
+let semuadataProdi = JSON.parse(localStorage.getItem('prodiData'));
+semuadataProdi = semuadataProdi.message[0].data_prodi;
+let jumlahdataProdi = semuadataProdi.length; 
+console.log("Semua data prodi:", semuadataProdi);
+
+const data = [];
+const countries = [];
+
+semuadataProdi.forEach(entry => {
+  const namaProdi = entry.nama_prodi;
+  const jumlah = countByProdi[namaProdi] || 0;
+  const persentase = totalDosen > 0 ? ((jumlah / totalDosen) * 100).toFixed(2) : 0;
+
+  // console.log(`${namaProdi}: ${jumlah} dosen (${persentase}%)`);
+
+  data.push({ label: namaProdi, value: jumlah });
+  countries.push({
+    name: namaProdi,
+    value: parseFloat(persentase),
     flag: <IndiaFlag />,
-    color: 'hsl(220, 25%, 65%)',
-  },
-  {
-    name: 'USA',
-    value: 35,
-    flag: <UsaFlag />,
-    color: 'hsl(220, 25%, 45%)',
-  },
-  {
-    name: 'Brazil',
-    value: 10,
-    flag: <BrazilFlag />,
-    color: 'hsl(220, 25%, 30%)',
-  },
-  {
-    name: 'Other',
-    value: 5,
-    flag: <GlobeFlag />,
-    color: 'hsl(220, 25%, 20%)',
-  },
-];
+    color: 'hsl(220,25%,65%)'
+  });
+});
+
+
 
 const StyledText = styled('text', {
   shouldForwardProp: (prop) => prop !== 'variant',
@@ -119,7 +130,13 @@ const colors = [
 ];
 
 export default function ChartProdiByDosen({ totalData }) {
-  console.log('chart data prodi by dosen lingkaran : ', totalData);
+  const [expanded, setExpanded] = useState(false);
+  const visibleCount = expanded ? countries.length : 5;
+
+  const handleToggle = () => {
+    setExpanded((prev) => !prev);
+  };
+
   return (
     <Card
       variant="outlined"
@@ -127,8 +144,9 @@ export default function ChartProdiByDosen({ totalData }) {
     >
       <CardContent>
         <Typography component="h2" variant="subtitle2">
-         Jumlah dosen berdasarkan prodi
+          Jumlah dosen berdasarkan prodi
         </Typography>
+
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PieChart
             colors={colors}
@@ -153,10 +171,12 @@ export default function ChartProdiByDosen({ totalData }) {
               legend: { hidden: true },
             }}
           >
-            <PieCenterLabel primaryText={totalData} secondaryText="Total dosen" />
+            <PieCenterLabel primaryText={jumlahdataProdi} secondaryText="Total Dosen berdasarkan prodi" />
           </PieChart>
         </Box>
-        {countries.map((country, index) => (
+
+        {/* Tampilkan hanya sebagian jika belum di-expand */}
+        {countries.slice(0, visibleCount).map((country, index) => (
           <Stack
             key={index}
             direction="row"
@@ -181,7 +201,6 @@ export default function ChartProdiByDosen({ totalData }) {
               </Stack>
               <LinearProgress
                 variant="determinate"
-                aria-label="jumlah mahasiswa berdasarkan prodi"
                 value={country.value}
                 sx={{
                   [`& .${linearProgressClasses.bar}`]: {
@@ -192,6 +211,15 @@ export default function ChartProdiByDosen({ totalData }) {
             </Stack>
           </Stack>
         ))}
+
+        {/* Tombol Expand/Collapse */}
+        {countries.length > 5 && (
+          <Box textAlign="center">
+            <Button onClick={handleToggle}>
+              {expanded ? 'Tutup' : 'Selengkapnya'}
+            </Button>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );

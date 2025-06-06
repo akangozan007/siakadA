@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react'; 
+import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
@@ -17,66 +19,44 @@ import {
   GlobeFlag,
 } from '../user/internals/components/CustomIcons';
 
-const data = [
-  { label: 'India', value: 50000 },
-  { label: 'USA', value: 35000 },
-  { label: 'Brazil', value: 10000 },
-  { label: 'Other', value: 5000 },
-];
+// Ambil semua data mahasiswa
+let semuadataMahasiswa = JSON.parse(localStorage.getItem('mahasiswaData'));
+semuadataMahasiswa = semuadataMahasiswa[1]['mahasiswa'];
+let jumlahdataMahasiswa = semuadataMahasiswa.length;
+console.log("Semua data Mahasiswa:", jumlahdataMahasiswa);
 
-// const countries = [
-//   {
-//     name: 'India',
-//     value: 50,
-//     flag: <IndiaFlag />,
-//     color: 'hsl(220, 25%, 65%)',
-//   },
-//   {
-//     name: 'USA',
-//     value: 35,
-//     flag: <UsaFlag />,
-//     color: 'hsl(220, 25%, 45%)',
-//   },
-//   {
-//     name: 'Brazil',
-//     value: 10,
-//     flag: <BrazilFlag />,
-//     color: 'hsl(220, 25%, 30%)',
-//   },
-//   {
-//     name: 'Other',
-//     value: 5,
-//     flag: <GlobeFlag />,
-//     color: 'hsl(220, 25%, 20%)',
-//   },
-// ];
+// Hitung jumlah mahasiswa per prodi
+const countByProdi = {};
 
-const countries = [
-  {
-    name: 'India',
-    value: 50,
-    flag: <IndiaFlag />,
-    color: 'hsl(220, 25%, 65%)',
-  },
-  {
-    name: 'USA',
-    value: 35,
-    flag: <UsaFlag />,
-    color: 'hsl(220, 25%, 45%)',
-  },
-  {
-    name: 'Brazil',
-    value: 10,
-    flag: <BrazilFlag />,
-    color: 'hsl(220, 25%, 30%)',
-  },
-  {
-    name: 'Other',
-    value: 5,
-    flag: <GlobeFlag />,
-    color: 'hsl(220, 25%, 20%)',
-  },
-];
+semuadataMahasiswa.forEach(entry => {
+  const prodi = entry.nama_prodi;
+  countByProdi[prodi] = (countByProdi[prodi] || 0) + 1;
+});
+
+// Ambil semua prodi
+let semuadataProdi = JSON.parse(localStorage.getItem('prodiData'));
+semuadataProdi = semuadataProdi.message[0].data_prodi;
+let jumlahdataProdi = semuadataProdi.length; 
+console.log("Semua data prodi:", semuadataProdi);
+
+const data = [];
+const countries = [];
+
+semuadataProdi.forEach(entry => {
+  const namaProdi = entry.nama_prodi;
+  const jumlah = countByProdi[namaProdi] || 0;
+  const persentase = jumlahdataMahasiswa > 0 ? ((jumlah / jumlahdataMahasiswa) * 100).toFixed(2) : 0;
+    data.push({ label: namaProdi, value: jumlah });
+    countries.push({
+      name: namaProdi,
+      value: parseFloat(persentase),
+      flag: <IndiaFlag />,
+      color: 'hsl(220,25%,65%)'
+    });
+  });
+
+
+
 
 const StyledText = styled('text', {
   shouldForwardProp: (prop) => prop !== 'variant',
@@ -146,6 +126,13 @@ const colors = [
 ];
 
 export default function ChartProdiByMahasiswa({ totalData }) {
+   const [expanded, setExpanded] = useState(false);
+   const visibleCount = expanded ? countries.length : 5;
+  
+    const handleToggle = () => {
+      setExpanded((prev) => !prev);
+    };
+
   console.log('chart data lingkaran : ', totalData);
   return (
     <Card
@@ -180,10 +167,10 @@ export default function ChartProdiByMahasiswa({ totalData }) {
               legend: { hidden: true },
             }}
           >
-            <PieCenterLabel primaryText={totalData} secondaryText="Total Mahasiswa" />
+            <PieCenterLabel primaryText={jumlahdataProdi} secondaryText="Total Mahasiswa Berdasarkan Prodi" />
           </PieChart>
         </Box>
-        {countries.map((country, index) => (
+        {countries.slice(0, visibleCount).map((country, index) => (
           <Stack
             key={index}
             direction="row"
@@ -219,6 +206,14 @@ export default function ChartProdiByMahasiswa({ totalData }) {
             </Stack>
           </Stack>
         ))}
+          {/* Tombol Expand/Collapse */}
+                {countries.length > 5 && (
+                  <Box textAlign="center">
+                    <Button onClick={handleToggle}>
+                      {expanded ? 'Tutup' : 'Selengkapnya'}
+                    </Button>
+                  </Box>
+                )}
       </CardContent>
     </Card>
   );
