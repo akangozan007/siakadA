@@ -119,6 +119,7 @@ const colors = [
 ];
 
 export default function ChartProdiByDosen({ totalData }) {
+  console.log('chart data prodi by dosen lingkaran : ', totalData);
   return (
     <Card
       variant="outlined"
@@ -152,7 +153,7 @@ export default function ChartProdiByDosen({ totalData }) {
               legend: { hidden: true },
             }}
           >
-            <PieCenterLabel primaryText="98.5K" secondaryText="Total" />
+            <PieCenterLabel primaryText={totalData} secondaryText="Total dosen" />
           </PieChart>
         </Box>
         {countries.map((country, index) => (

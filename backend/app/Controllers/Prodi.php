@@ -48,11 +48,14 @@ class Prodi extends ResourceController
                     // data innerJoin 
                     $sqlProdiAll = new ProdiModel();
                     $data2['prodi'] = $sqlProdiAll->getProdiFull();
+                    // data innerJoin jumlah masing masing mahasiswa berdasarkan prodi
+                    $sqlProdiByNames = new ProdiModel();
+                    $data3['prodibyname'] = $sqlProdiByNames->getProdiByName();
                     // output data
                     $dataBaru = [$data, $data2];
                 
                 // return $this->respond($data, 200);
-                return $this->respond($dataBaru, 200);
+                return $this->respond(['message'=>$dataBaru], 200);
 
             }else {
                 return $this->respond(['message'=>'Anda tidak berhak mengakses informasi ini'], 403);

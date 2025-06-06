@@ -25,4 +25,13 @@ class ProdiModel extends Model
             ->getResult();
     }
 
+    public function getProdiByName()
+    {
+        return $this->db->table('prodi')
+        ->select('prodi.nama_prodi, COUNT(mahasiswa.mahasiswa_id) AS total_mahasiswa')
+        ->join('mahasiswa', 'mahasiswa.prodi_id = prodi.prodi_id', 'left')
+        ->groupBy('prodi.prodi_id')
+        ->get()
+        ->getResult();
+    }
 }

@@ -24,6 +24,33 @@ const data = [
   { label: 'Other', value: 5000 },
 ];
 
+// const countries = [
+//   {
+//     name: 'India',
+//     value: 50,
+//     flag: <IndiaFlag />,
+//     color: 'hsl(220, 25%, 65%)',
+//   },
+//   {
+//     name: 'USA',
+//     value: 35,
+//     flag: <UsaFlag />,
+//     color: 'hsl(220, 25%, 45%)',
+//   },
+//   {
+//     name: 'Brazil',
+//     value: 10,
+//     flag: <BrazilFlag />,
+//     color: 'hsl(220, 25%, 30%)',
+//   },
+//   {
+//     name: 'Other',
+//     value: 5,
+//     flag: <GlobeFlag />,
+//     color: 'hsl(220, 25%, 20%)',
+//   },
+// ];
+
 const countries = [
   {
     name: 'India',
@@ -119,6 +146,7 @@ const colors = [
 ];
 
 export default function ChartProdiByMahasiswa({ totalData }) {
+  console.log('chart data lingkaran : ', totalData);
   return (
     <Card
       variant="outlined"
@@ -152,7 +180,7 @@ export default function ChartProdiByMahasiswa({ totalData }) {
               legend: { hidden: true },
             }}
           >
-            <PieCenterLabel primaryText="98.5K" secondaryText="Total" />
+            <PieCenterLabel primaryText={totalData} secondaryText="Total Mahasiswa" />
           </PieChart>
         </Box>
         {countries.map((country, index) => (

@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
+
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Copyright from '../user/internals/components/Copyright';
-import ChartUserByCountry from './ChartUserByCountry';
 import ChartProdiByMahasiswa from './ChartProdiByMahasiswa';
 import ChartProdiByDosen from './ChartProdiByDosen';
 import CustomizedTreeView from './CustomizedTreeView';
@@ -13,217 +14,134 @@ import DosenDataGrid from './DosenDataGrid';
 import StatCard from './StatCard';
 import axios from 'axios';
 
-// get data prodi
-let prodiData = localStorage.getItem('prodiData');
-
-async function getProdi() {
-  let token = localStorage.getItem('token');
-
-  try {
-    const response = await axios.get('http://localhost:8080/api/prodi', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    prodiData = response.data;
-    console.log('Data Prodi:', prodiData);
-    localStorage.setItem('prodiData', JSON.stringify(prodiData));
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-getProdi();
-
-// console.log(JSON.stringify(fakultasData));
-prodiData = JSON.parse(localStorage.getItem('prodiData') || '[]');
-// console.log(fakultasData.length);
-let jumlahProdi = prodiData[0]["data_prodi"].length;
-// let jumlahMahasiswaByProdi = prodiData[1].length;
-
-console.log("Jumlah Prodi : "+jumlahProdi);
 
 
-// get data mahasiswa
-let mahasiswaData = localStorage.getItem('mahasiswaData');
-
-async function getMahasiswa() {
-  let token = localStorage.getItem('token');
-
-  try {
-    const response = await axios.get('http://localhost:8080/api/mahasiswa', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    mahasiswaData = response.data;
-    console.log('Data Mahasiswa:', mahasiswaData);
-    localStorage.setItem('mahasiswaData', JSON.stringify(mahasiswaData));
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-getMahasiswa();
-
-
-// console.log(JSON.stringify(fakultasData));
-mahasiswaData = JSON.parse(localStorage.getItem('mahasiswaData') || '[]');
-// console.log(fakultasData.length);
-let jumlahMahasiswa = mahasiswaData[0].length+1;
-
-
-// get data fakultas
-let dosenData = localStorage.getItem('dosenData');
-
-async function getDosen() {
-  let token = localStorage.getItem('token');
-
-  try {
-    const response = await axios.get('http://localhost:8080/api/dosen', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    dosenData = response.data;
-    console.log('Data Dosen:', dosenData);
-    localStorage.setItem('dosenData', JSON.stringify(dosenData));
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-getDosen();
-// console.log(JSON.stringify(fakultasData));
-dosenData = JSON.parse(localStorage.getItem('dosenData') || '[]');
-// console.log(fakultasData.length);
-let jumlahDosen = dosenData[0].length;
-
-// get data dosen
-
-let fakultasData = localStorage.getItem('fakultasData');
-
-async function getFakultas() {
-  let token = localStorage.getItem('token');
-
-  try {
-    const response = await axios.get('http://localhost:8080/api/fakultas', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    fakultasData = response.data;
-    console.log('Data Fakultas:', fakultasData);
-    localStorage.setItem('fakultasData', JSON.stringify(fakultasData));
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-getFakultas();
-// console.log(JSON.stringify(fakultasData));
-fakultasData = JSON.parse(localStorage.getItem('fakultasData') || '[]');
-// console.log(fakultasData.length);
-let jumlahFakultas = fakultasData.length;
-
-
-const data = [
-  {
-    title: 'Jumlah Fakultas',
-    value: `${jumlahFakultas}`,
-    interval: 'Last 30 days',
-    trend: 'up',
-    data: [
-      200, 24, 220, 260, 240, 380, 100, 240, 280, 240, 300, 340, 320, 360, 340, 380,
-      360, 400, 380, 420, 400, 640, 340, 460, 440, 480, 460, 600, 880, 920,
-    ],
-  },
-  {
-    title: 'Jumlah Prodi',
-    value: `${jumlahProdi}`,
-    interval: 'Last 30 days',
-    trend: 'down',
-    data: [
-      1640, 1250, 970, 1130, 1050, 900, 720, 1080, 900, 450, 920, 820, 840, 600, 820,
-      780, 800, 760, 380, 740, 660, 620, 840, 500, 520, 480, 400, 360, 300, 220,
-    ],
-  },
-  {
-    title: 'Jumlah Mahasiswa',
-    value: `${jumlahMahasiswa}`,
-    interval: 'Last 30 days',
-    trend: 'neutral',
-    data: [
-      500, 400, 510, 530, 520, 600, 530, 520, 510, 730, 520, 510, 530, 620, 510, 530,
-      520, 410, 530, 520, 610, 530, 520, 610, 530, 420, 510, 430, 520, 510,
-    ],
-  },
-  {
-    title: 'Jumlah Dosen',
-    value: `${jumlahDosen}`,
-    interval: 'Last 30 days',
-    trend: 'neutral',
-    data: [
-      500, 400, 510, 530, 520, 600, 530, 520, 510, 730, 520, 510, 530, 620, 510, 530,
-      520, 410, 530, 520, 610, 530, 520, 610, 530, 420, 510, 430, 520, 510,
-    ],
-  },
-];
 
 export default function DosenMahasiswa() {
+  const [jumlahFakultas, setJumlahFakultas] = useState(0);
+  const [jumlahProdi, setJumlahProdi] = useState(0);
+  const [jumlahMahasiswa, setJumlahMahasiswa] = useState(0);
+  const [jumlahDosen, setJumlahDosen] = useState(0);
+
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const [fakultasRes, prodiRes, mahasiswaRes, dosenRes] = await Promise.all([
+          axios.get('http://localhost:8080/api/fakultas', { headers }),
+          axios.get('http://localhost:8080/api/prodi', { headers }),
+          axios.get('http://localhost:8080/api/mahasiswa', { headers }),
+          axios.get('http://localhost:8080/api/dosen', { headers }),
+        ]);
+
+      // Simpan data jika perlu di localStorage
+      localStorage.setItem('fakultasData', JSON.stringify(fakultasRes.data));
+      localStorage.setItem('prodiData', JSON.stringify(prodiRes.data));
+      localStorage.setItem('mahasiswaData', JSON.stringify(mahasiswaRes.data));
+      localStorage.setItem('dosenData', JSON.stringify(dosenRes.data));
+
+      // Hitung jumlah
+      setJumlahFakultas(fakultasRes.data.length || 0);
+
+      // Ambil jumlah prodi dari message[0].data_prodi
+      setJumlahProdi(prodiRes.data?.message?.[0]?.data_prodi?.length || 0);
+
+      // Ambil jumlah mahasiswa dari message[1].prodi
+      setJumlahMahasiswa(mahasiswaRes.data?.[1]?.mahasiswa?.length || 0);
+
+      // Untuk dosen, tergantung struktur response-nya (tidak kamu lampirkan),
+      // misalnya jika struktur seperti: { message: [ { dosen: [...] } ] }
+      setJumlahDosen(dosenRes.data?.[0]?.all?.length || 0); // atau sesuaikan
+  
+      } catch (err) {
+        console.error("Gagal fetch data:", err);
+      }
+    };
+
+    fetchAllData();
+  }, [token]);
+
+  const data = [
+    {
+      title: 'Jumlah Fakultas',
+      value: `${jumlahFakultas}`,
+      interval: 'Last 30 days',
+      trend: 'up',
+      data: [...Array(30)].map(() => Math.floor(Math.random() * 100 + 200)), // contoh dummy chart
+    },
+    {
+      title: 'Jumlah Prodi',
+      value: `${jumlahProdi}`,
+      interval: 'Last 30 days',
+      trend: 'down',
+      data: [...Array(30)].map(() => Math.floor(Math.random() * 1000)),
+    },
+    {
+      title: 'Jumlah Mahasiswa',
+      value: `${jumlahMahasiswa}`,
+      interval: 'Last 30 days',
+      trend: 'neutral',
+      data: [...Array(30)].map(() => Math.floor(Math.random() * 600)),
+    },
+    {
+      title: 'Jumlah Dosen',
+      value: `${jumlahDosen}`,
+      interval: 'Last 30 days',
+      trend: 'neutral',
+      data: [...Array(30)].map(() => Math.floor(Math.random() * 600)),
+    },
+  ];
+
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
-      {/* cards */}
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Kontrol User Mahasiswa
       </Typography>
-      <Grid
-        container
-        spacing={2}
-        columns={12}
-        sx={{ mb: (theme) => theme.spacing(2) }}
-      >
+
+      <Grid container spacing={2} columns={12} sx={{ mb: 2 }}>
         {data.map((card, index) => (
-          <Grid key={index} size={{ xs: 12, sm: 6, lg: 3 }}>
+          <Grid key={index} item xs={12} sm={6} lg={3}>
             <StatCard {...card} />
           </Grid>
         ))}
       </Grid>
-      {/* List user Mahasiswa */}
 
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-         List User Mahasiswa
-       </Typography>     
+        List User Mahasiswa
+      </Typography>
+
       <Grid container spacing={2} columns={12}>
-        <Grid size={{ xs: 12, lg: 9 }}>
+        <Grid item xs={12} lg={9}>
           <MahasiswaDataGrid />
         </Grid>
-        <Grid size={{ xs: 12, lg: 3 }}>
+        <Grid item xs={12} lg={6} md={6}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
-            {/* <CustomizedTreeView /> */}
             <ChartProdiByMahasiswa totalData={jumlahMahasiswa} />
           </Stack>
         </Grid>
       </Grid>
-     {/* List user Dosen */}
-     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-         List User Dosen
-       </Typography>     
+
+      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+        List User Dosen
+      </Typography>
+
       <Grid container spacing={2} columns={12}>
-        <Grid size={{ xs: 12, lg: 9 }}>
+        <Grid item xs={12} lg={9}>
           <DosenDataGrid />
         </Grid>
-        <Grid size={{ xs: 12, lg: 3 }}>
+        <Grid item xs={12} lg={6} md={6}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
             <CustomizedTreeView />
-            <ChartProdiByDosen totalData={jumlahDosen}/>
+            <ChartProdiByDosen totalData={jumlahDosen} />
           </Stack>
         </Grid>
       </Grid>
+
       <Copyright sx={{ my: 4 }} />
     </Box>
   );

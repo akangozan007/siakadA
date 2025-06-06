@@ -43,7 +43,7 @@ class Dosen extends ResourceController
             if ($decoded->role == "admin" ) {
                 // data khusus table mahasiswa
                 $dosenModel = new DosenModel();
-                $data = $dosenModel->findAll();
+                $data['all'] = $dosenModel->findAll();
                 // data innerJoin 
                 $sqlDosenAll = new DosenModel();
                 $data2['dosen'] = $sqlDosenAll->getDosenFull();

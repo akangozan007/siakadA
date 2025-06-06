@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
 import axios from 'axios';
+import { createTheme } from '@mui/material/styles';
 
-export default function MahasiswaDataGrid() {
+export default function DosenDataGrid() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pageSize, setPageSize] = useState(getPageSize(window.innerWidth));
@@ -14,6 +16,7 @@ export default function MahasiswaDataGrid() {
     if (width < 1200) return 20;
     return 50;
   }
+  // tombol warna
 
   useEffect(() => {
     async function getAllDosen() {
@@ -33,7 +36,8 @@ export default function MahasiswaDataGrid() {
           email: dsn.email,
           prodi: dsn.nama_prodi,
           fakultas: dsn.nama_fakultas,
-          action: 'edit',
+          edit:<Button variant="outlined" color="secondary">Edit</Button>,
+          hapus:<Button variant="outlined" color="error">Hapus</Button>
         }));
 
         setRows(rowsData);
@@ -54,6 +58,25 @@ export default function MahasiswaDataGrid() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+    // warna tombol
+  
+    const theme = createTheme({
+      palette: {
+        edit: {
+          light: '#2196f3',
+          main: '#2196f3',
+          dark: '#0b79d0',
+          contrastText: '#fff',
+        },
+        delete: {
+          light: '#f50057',
+          main: '#f44336',
+          dark: '#d32f2f',
+          contrastText: '#fff',
+        },
+      },
+    });
+
   const columns = [
     {
       field: 'no',
@@ -66,8 +89,59 @@ export default function MahasiswaDataGrid() {
     { field: 'email', headerName: 'Email', flex: 1.5, minWidth: 200 },
     { field: 'prodi', headerName: 'Program Studi', flex: 1, minWidth: 150 },
     { field: 'fakultas', headerName: 'Fakultas', flex: 1, minWidth: 150 },
-    { field: 'action', headerName: 'Aksi', flex: 1, minWidth: 100 },
+    {
+      field: 'edit',
+      headerName: 'Edit',
+      flex: 1,
+      minWidth: 100,
+      renderCell:(params) => (
+        <Button
+          variant="outlined"
+          sx={{
+            color: theme.palette.edit.light,
+            borderColor: theme.palette.edit.light,
+            '&:hover': {
+              backgroundColor: theme.palette.edit.light,
+              color: '#fff',
+            },
+          }}
+          onClick={() => handleEdit(params.row)}
+        >
+          Edit
+        </Button>
+      )
+    },
+    {
+      field: 'hapus',
+      headerName: 'Hapus',
+      flex: 1,
+      minWidth: 100,
+      renderCell: (params) => (
+        <Button
+          variant="outlined"
+          sx={{
+            color: theme.palette.delete.light,
+            borderColor: theme.palette.delete.light,
+            '&:hover': {
+              backgroundColor: theme.palette.delete.light,
+              color: '#fff',
+            },
+          }}
+          onClick={() => handleHapus(params.row)}
+        >
+          Hapus
+        </Button>
+      )
+    },
   ];
+
+  const handleEdit = (row) => {
+    console.log('Edit clicked for:', row);
+  };
+
+  const handleHapus = (row) => {
+    console.log('Hapus clicked for:', row);
+  };
 
   if (loading) return <div>Loading...</div>;
 

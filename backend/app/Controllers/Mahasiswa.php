@@ -43,7 +43,7 @@ class Mahasiswa extends ResourceController
             if ($decoded->role == "admin") {
                 // data khusus table mahasiswa
                 $mahasiswaModel = new MahasiswaModel();
-                $data = $mahasiswaModel->findAll();
+                $data['all'] = $mahasiswaModel->findAll();
                 // data innerJoin 
                 $sqlMahasiswaAll = new MahasiswaModel();
                 $data2['mahasiswa'] = $sqlMahasiswaAll->getMahasiswaFull();
