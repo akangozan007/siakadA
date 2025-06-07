@@ -137,7 +137,11 @@ export default function DosenDataGrid() {
 
   const handleEdit = (row) => {
     console.log('Edit clicked for:', row);
+    console.log('Type of row:', typeof row);
+    console.log('Keys in row:', Object.keys(row));
+    console.log('row.id:', row.id);
   };
+  
 
   const handleHapus = (row) => {
     console.log('Hapus clicked for:', row);

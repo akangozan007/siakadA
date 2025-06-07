@@ -3,8 +3,16 @@ import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { createTheme } from '@mui/material/styles';
+import EditMahasiswa from '../user/EditMahasiswa';
+import { Box } from '@mui/system';
+import { Backdrop } from '@mui/material';
+// import { Box } from '@mui/material';
+
 
 export default function MahasiswaDataGrid() {
+// dom open close edit mahasiswa
+  const [OpenEditMahasiswa, setOpenEditMahasiswa] = useState(false);
+
 
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -139,9 +147,17 @@ export default function MahasiswaDataGrid() {
       )
     },
   ];
-
   const handleEdit = (row) => {
     console.log('Edit clicked for:', row);
+    console.log('Type of row:', typeof row);
+    console.log('Keys in row:', Object.keys(row));
+    console.log('row.id:', row.id);
+    setOpenEditMahasiswa(true);
+    
+  };
+
+  const handleCloseMhs = () => {
+    setOpenEditMahasiswa(!OpenEditMahasiswa);
   };
 
   const handleHapus = (row) => {
@@ -172,6 +188,13 @@ export default function MahasiswaDataGrid() {
         density="compact"
       />
     </div>
+    {/* backdrop form editMahasiswa */}
+    <Backdrop open={OpenEditMahasiswa} onClick={handleCloseMhs}>
+        <EditMahasiswa />
+    </Backdrop>
+      <Box>
+
+      </Box>
     </>
   );
 }
