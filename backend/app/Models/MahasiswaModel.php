@@ -27,6 +27,21 @@ class MahasiswaModel extends Model
             ->get()
             ->getResult();
     }
+      // Di Model MahasiswaModel.php
+    public function getMahasiswaByIdAndMail($id,$email)
+    {
+          return $this->db->table('mahasiswa')
+        //   ambil semua data
+              ->select('*')
+        // join table account
+              ->join('user_account', 'user_account.user_id = mahasiswa.user_id')
+        // jika email dan id user 
+              ->where('user_account.email',$email)
+              ->where('mahasiswa.mahasiswa_id',$id)
+        // get hasil 
+              ->get()
+              ->getResult();
+     }
 
 }
 

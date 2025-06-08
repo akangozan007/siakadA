@@ -46,7 +46,7 @@ export function EditMahasiswa({ data, close }) {
        <Grid item xs={8}>
        <div className="container-fluid" style={{ display: 'flex', justifyContent: 'center' }}>
           <FormControl  style={{ margin: '0 auto' }}>
-          <Typography variant="h1" className='text-danger' gutterBottom>
+          <Typography variant="h1" className='text-danger d-none-sm' gutterBottom>
             Mahasiswa Edit
           </Typography>
           <Typography variant="h1" className='text-danger' gutterBottom>
@@ -84,6 +84,3 @@ export function EditMahasiswa({ data, close }) {
     
   );
 }
-
-
-

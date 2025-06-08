@@ -33,6 +33,11 @@ $routes->options('/api/mahasiswa', function () {
     return response()->setStatusCode(200);
 }, ['filter' => 'cors']);
 
+$routes->options('/api/mahasiswaByIdEmail', function () {
+    return response()->setStatusCode(200);
+}, ['filter' => 'cors']);
+
+
 $routes->options('/api/dosen', function () {
     return response()->setStatusCode(200);
 }, ['filter' => 'cors']);
@@ -56,6 +61,10 @@ $routes->get('/api/prodi', 'Prodi::getProdi', ['filter' => 'cors']);
 $routes->get('/api/mahasiswa', 'Mahasiswa::getMahasiswa', ['filter' => 'cors']);
 $routes->get('/api/dosen', 'Dosen::getDosen', ['filter' => 'cors']);
 $routes->post('/api/upload', 'Upload::postFile', ['filter' => 'cors']);
+// user mahasiswa by id and email
+$routes->get('/api/mahasiswaByIdEmail', 'Mahasiswa::getMahasiswaByEmailAndID', ['filter' => 'cors']);
+
+
 
 // unit testing upload
 $routes->post('/api/login', 'Login::index', ['filter' => 'cors']);
@@ -65,6 +74,7 @@ $routes->group('/api', ['filter' => 'auth'], static function ($routes) {
     $routes->get('/dashboard', 'User::index');   // GET /api/dashboard
     $routes->get('/fakultas', 'Fakultas::getFakultas'); // Get /api/fakultas
     $routes->get('/mahasiswa', 'Mahasiswa::getMahasiswa'); // Get /api/mahasiswa
+    $routes->get('/mahasiswaByIdEmail', 'Mahasiswa::getMahasiswaByEmailAndID'); // Get /api/mahasiswaByIdEmail
     $routes->get('/dosen', 'Dosen::getDosen'); // Get /api/dosen
     $routes->get('/prodi', 'Dosen::getProdi'); // Get /api/prodi
     $routes->post('/upload', 'Dosen::getProdi'); // Get /api/prodi

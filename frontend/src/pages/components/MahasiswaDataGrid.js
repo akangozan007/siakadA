@@ -3,15 +3,19 @@ import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { createTheme } from '@mui/material/styles';
-import EditMahasiswa from '../user/EditMahasiswa';
+import { EditMahasiswa }  from '../user/EditMahasiswa';
 import { Box } from '@mui/system';
 import { Backdrop } from '@mui/material';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Optional: untuk komponen JS seperti modal, toast, dsb
 // import { Box } from '@mui/material';
 
 
 export default function MahasiswaDataGrid() {
 // dom open close edit mahasiswa
-  const [OpenEditMahasiswa, setOpenEditMahasiswa] = useState(false);
+  const [OpenEditMahasiswa, setOpenEditMahasiswa] = useState(false,[]);
+// dom open close edit mahasiswa
+  const [OpenDataMahasiswa, setOpenDataMahasiswa] = useState(null);
 
 
   const [rows, setRows] = useState([]);
@@ -152,12 +156,14 @@ export default function MahasiswaDataGrid() {
     console.log('Type of row:', typeof row);
     console.log('Keys in row:', Object.keys(row));
     console.log('row.id:', row.id);
+    setOpenDataMahasiswa(row);
     setOpenEditMahasiswa(true);
     
   };
 
   const handleCloseMhs = () => {
     setOpenEditMahasiswa(!OpenEditMahasiswa);
+    setOpenDataMahasiswa(!OpenDataMahasiswa);
   };
 
   const handleHapus = (row) => {
@@ -189,9 +195,18 @@ export default function MahasiswaDataGrid() {
       />
     </div>
     {/* backdrop form editMahasiswa */}
-    <Backdrop open={OpenEditMahasiswa} onClick={handleCloseMhs}>
-        <EditMahasiswa />
+    <Backdrop
+        open={OpenEditMahasiswa}
+        sx={{
+          color: '#fff',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: 'blur(20px)',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi transparan hitam
+        }}
+      >
+      <EditMahasiswa data={OpenDataMahasiswa} close={handleCloseMhs} />
     </Backdrop>
+
       <Box>
 
       </Box>
