@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
+import { Backdrop } from '@mui/material';
 import axios from 'axios';
+import { EditDosen } from '../user/EditDosen';
 import { createTheme } from '@mui/material/styles';
 
 export default function DosenDataGrid() {
   const [rows, setRows] = useState([]);
+  // dom open close edit mahasiswa
+    const [OpenEditDosen, setOpenEditDosen] = useState(false,[]);
+  // dom open close edit mahasiswa
+    const [OpenDataDosen, setOpenDataDosen] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [pageSize, setPageSize] = useState(getPageSize(window.innerWidth));
 
@@ -20,6 +27,8 @@ export default function DosenDataGrid() {
 
   useEffect(() => {
     async function getAllDosen() {
+
+
       const token = localStorage.getItem('token');
       try {
         const response = await axios.get('http://localhost:8080/api/dosen', {
@@ -140,8 +149,16 @@ export default function DosenDataGrid() {
     console.log('Type of row:', typeof row);
     console.log('Keys in row:', Object.keys(row));
     console.log('row.id:', row.id);
+
+    setOpenDataDosen(row);
+    setOpenEditDosen(true);
   };
   
+  const handleCloseDsn = () => {
+    setOpenEditDosen(!OpenEditDosen);
+    setOpenDataDosen(!OpenDataDosen);
+  };
+
 
   const handleHapus = (row) => {
     console.log('Hapus clicked for:', row);
@@ -168,6 +185,20 @@ export default function DosenDataGrid() {
         density="compact"
       />
     </div>
+
+           {/* backdrop form editMahasiswa */}
+    <Backdrop
+        open={OpenEditDosen}
+        sx={{
+          color: '#fff',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: 'blur(20px)',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi transparan hitam
+        }}
+      >
+      <EditDosen data={OpenDataDosen} close={handleCloseDsn} />
+    </Backdrop>
+
     </>
   );
 }

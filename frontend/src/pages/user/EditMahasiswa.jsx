@@ -45,7 +45,7 @@ export function EditMahasiswa({ data, close }) {
     <Grid container spacing={2} columns={16}>
        <Grid item xs={8}>
        <div className="container-fluid" style={{ display: 'flex', justifyContent: 'center' }}>
-          <FormControl  style={{ margin: '0 auto' }}>
+          <FormControl  style={{ margin: '0 auto' }} className='mx-3 w-75'>
           <Typography variant="h1" className='text-danger' gutterBottom>
             Mahasiswa Edit
           </Typography>
@@ -61,25 +61,63 @@ export function EditMahasiswa({ data, close }) {
         </Grid>
         <Grid item xs={8}>
        <div className="container-fluid" style={{ display: 'flex', justifyContent: 'center' }}>
-          <FormControl  style={{ margin: '0 auto' }}>
-              <TextField name="nama" id="standard-basic" label="Nama Lengkap" variant="standard" className='m-3'/>
-              <TextField name="nim" id="standard-basic" label="NIM" variant="standard" className='m-3'/>
-              <TextField name="email" id="standard-basic" label="Email" variant="standard" className='m-3'/>
+          <FormControl  style={{ margin: 'auto' }} className='mx-3 w-75'>
+          <TextField
+                id="outlined-textarea"
+                name='nama'
+                label="Nama lengkap"
+                placeholder={data.nama}
+                multiline
+                variant='standard'
+              />
+              <TextField
+                id="outlined-textarea"
+                name='nim'
+                label="Nomor Induk Mahasiswa"
+                placeholder={data.nim}
+                multiline
+                variant='standard'
+              />
+              <TextField
+                id="outlined-textarea"
+                name='email'
+                label="Alamat email"
+                placeholder={data.email}
+                multiline
+                variant='standard'
+              />
           </FormControl>
-          <FormControl  style={{ margin: '0 auto' }}>
-              <TextField name="fakultas" id="standard-basic" label="Fakultas" variant="standard" className='m-3'/>
-              <TextField name="prodi" id="standard-basic" label="Program Studi" variant="standard" className='m-3'/>
-              <TextField name="password" id="standard-basic" label="Password" variant="standard" className='m-3'/>
+          <FormControl  style={{ margin: 'auto' }} className='mx-3 w-75'>
+                <TextField
+                id="outlined-textarea"
+                name='fakultas'
+                label="Fakultas"
+                placeholder={data.fakultas}
+                multiline
+                variant='standard'
+              />
+                <TextField
+                id="outlined-textarea"
+                name='prodi'
+                label="Program studi"
+                placeholder={data.prodi}
+                multiline
+                variant='standard'
+              />
+                <TextField
+                id="outlined-textarea"
+                name='password'
+                label="Password"
+                placeholder={data.password}
+                multiline
+                variant='standard'
+              />
           </FormControl>
        </div>
        <ThemeProvider theme={theme}>
-        <Button variant="contained" color='violet' className='w-100 mx-2'>Submit</Button>
+        <Button variant="contained" color='violet' className='mt-5 w-100 mx-2'>Submit</Button>
        </ThemeProvider>
-        </Grid>
-        {/* <p>{data.nama}</p>
-        <p>{data.nim}</p>
-        <p>{data.email}</p> */}
-      
+        </Grid>      
     </Grid>
     
   );
