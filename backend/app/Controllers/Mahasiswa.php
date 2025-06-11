@@ -111,4 +111,70 @@ class Mahasiswa extends ResourceController
          
     }
 
+
+
+
+
+    public function postMahasiswaByEmailAndID()
+    {
+        $authHeader = $this->request->getServer('HTTP_AUTHORIZATION');
+        if (!$authHeader) {
+            return $this->respond(['message' => 'Authorization header not found'], ResponseInterface::HTTP_UNAUTHORIZED);
+        }
+    
+        $tokenParts = explode(' ', $authHeader);
+        if (count($tokenParts) !== 2 || $tokenParts[0] !== 'Bearer') {
+            return $this->respond(['message' => 'Invalid token format'], ResponseInterface::HTTP_UNAUTHORIZED);
+        }
+    
+        $jwtToken = $tokenParts[1];
+    
+        try {
+            $secretKey = getenv('TOKEN_SECRET');
+            if (!$secretKey) {
+                return $this->respond(['message' => 'Token secret belum dimasukkan'], ResponseInterface::HTTP_INTERNAL_SERVER_ERROR);
+            }
+    
+            $decoded = JWT::decode($jwtToken, new Key($secretKey, 'HS256'));
+    
+            if ($decoded->role == "admin") {
+    
+                // ✅ Gunakan getJSON() untuk membaca data JSON
+                $json = $this->request->getJSON();
+    
+                $userEmail     = $json->email;
+                $userNama      = $json->nama_lengkap;
+                $userNim       = $json->nim;
+                $userPwd       = $json->password;
+                $userProdi     = $json->nama_prodi;
+                $userFakultas  = $json->nama_fakultas;
+    
+                $dataMahasiswa = [
+                    "email"        => $userEmail,
+                    "nama_lengkap" => $userNama,
+                    "nim"          => $userNim,
+                    "password"          => $userPwd,
+                    "nama_prodi"        => $userProdi,
+                    "nama_fakultas"     => $userFakultas,
+                ];
+    
+                $mahasiswamodel = new MahasiswaModel();
+                $data = $mahasiswamodel->insertMahasiswaFromUser($userEmail, $dataMahasiswa);
+    
+                return $this->respond(['message' => $data], 200);
+    
+            } else {
+                return $this->respond(['message' => 'Anda tidak berhak mengakses informasi ini'], 403);
+            }
+    
+        } catch (\Throwable $th) {
+            return $this->respond(['message' => 'Terjadi kesalahan: ' . $th->getMessage()], 500);
+        }
+    }
+
+
+
+
+    
+
 }

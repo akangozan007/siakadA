@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   TextField, FormControl, Typography,
   Grid,Button,Select,
-  MenuItem,InputLabel
+  MenuItem
  } from '@mui/material';
 //  bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -121,6 +121,7 @@ export function EditDosen({ data, close }) {
                     label="Fakultas"
                     onChange={handleChangeFK}
                     displayEmpty
+                    className='mb-3'
                     inputProps={{ 'aria-label': 'Fakultas' }}
                   >
                     <MenuItem value="">
