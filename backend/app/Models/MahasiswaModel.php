@@ -47,13 +47,13 @@ class MahasiswaModel extends Model
 
 
 
-     public function insertMahasiswaFromUser($email, $dataMahasiswa)
+     public function insertMahasiswaFromUser($email, $dataMahasiswa,$oldemail)
      {
          $db = \Config\Database::connect();
      
          // 1. Ambil user berdasarkan email
          $user = $db->table('user_account')
-             ->where('email', $email)
+             ->where('email', $oldemail)
              ->get()
              ->getRow();
      

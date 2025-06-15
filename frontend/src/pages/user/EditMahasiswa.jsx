@@ -47,7 +47,7 @@ const theme = createTheme({
 
 
 
-export function EditMahasiswa({ data, close }) {
+export function EditMahasiswa({ data, close, Oldemail}) {
 
      const [fakultas, setFakultas] = useState([]);
      const [prodi, setProdi] = useState([]);
@@ -56,6 +56,7 @@ export function EditMahasiswa({ data, close }) {
    
     //  data post
     const [formData, setFormData] = useState({});
+
 
      // event fakultas
      const handleChangeFK = (event) => {
@@ -74,15 +75,18 @@ export function EditMahasiswa({ data, close }) {
     e.preventDefault();
     const form = e.target;
     const data = {};
-  
+
     for (let i = 0; i < form.elements.length; i++) {
       const input = form.elements[i];
       if (input.name) {
         data[input.name] = input.value;
+
+        
         // console.log(data[input.name]);
       }
     }
     setFormData(data);
+
   }
 
 
@@ -218,7 +222,7 @@ export function EditMahasiswa({ data, close }) {
         </div>
     </form>
     
-    <PostMahasiswa onData={formData} />
+    <PostMahasiswa onData={formData} onEmail={Oldemail}/>
   </Grid>
 </Grid>
 

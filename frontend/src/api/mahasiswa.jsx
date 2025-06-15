@@ -1,54 +1,99 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Skeleton, Alert, Box, Typography } from '@mui/material';
+import { cyan, pink } from '@mui/material/colors';
 
-let token = localStorage.getItem('token');
+const berhasil = cyan[500];
+const gagal = pink[900];
 
-export function PostMahasiswa({ onData }) {
+const token = localStorage.getItem('token');
 
-    let nama, email, nim, fakultas, prodi, pwd;
-    nama = onData.nama;
-    email = onData.email;
-    nim = onData.nim;
-    fakultas = onData.fakultas;
-    prodi = onData.prodi;
-    pwd = onData.password;
-
+export function PostMahasiswa({ onData, onEmail }) {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null); // null = belum dikirim, true = berhasil, false = gagal
 
   useEffect(() => {
-    if (onData !== null) {
-      const postData = async () => {
-        try {
+    const postData = async () => {
+      setLoading(true);
+      setSuccess(null);
 
-          const response = await axios.post(
-            'http://localhost:8080/api/mahasiswaUpdate',
-            {
-              "email": email,
-              "nama_lengkap": nama,
-              "nim": nim,
-              "nama_fakultas": fakultas,
-              "nama_prodi": prodi,
-              "password": pwd,
+      try {
+        const response = await axios.post(
+          'http://localhost:8080/api/mahasiswaUpdate',
+          {
+            email: onData.email,
+            nama_lengkap: onData.nama,
+            nim: onData.nim,
+            nama_fakultas: onData.fakultas,
+            nama_prodi: onData.prodi,
+            password: onData.password,
+            oldemail:onEmail
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
             },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (response.data === null ) {
-            console.log("menunggu data");
-          }else{
-            console.log("✅ Data berhasil dikirim:", response.data);
           }
-          
-          // bisa panggil notifikasi, atau set state berhasil
-        } catch (error) {
-          console.error("❌ Gagal mengirim data:", error);
-          // bisa kasih feedback ke user juga
-        }
-      };
+        );
 
-      postData(); // panggil fungsi async
+        if (response.data) {
+          console.log("✅ Data berhasil dikirim:", response.data);
+          setSuccess(true);
+        } else {
+          setSuccess(false);
+        }
+      } catch (error) {
+        console.error("❌ Gagal mengirim data:", error);
+        setSuccess(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (onData && Object.keys(onData).length > 0) {
+      postData();
     }
-  }, [onData]); // only trigger saat onData berubah
+  }, [onData]);
+
+  return (
+    <Box sx={{ mt: 2 }}>
+      {loading && (
+        <Box>
+          <Skeleton variant="rectangular" width="100%" height={50} />
+          <Skeleton variant="text" />
+          <Skeleton variant="text" width="60%" />
+        </Box>
+      )}
+
+      {!loading && success === true && (
+           <Box
+           sx={{
+             mt: 2,
+             p: 2,
+             border: '2px solid',
+             borderColor: berhasil,
+             color: berhasil,
+             borderRadius: 1,
+           }}
+         >
+           ✅ Data berhasil dikirim!
+         </Box>
+      )}
+
+      {!loading && success === false && (
+     <Box
+        sx={{
+          mt: 2,
+          p: 2,
+          border: '2px solid',
+          borderColor: gagal,
+          color: gagal,
+          borderRadius: 1,
+        }}
+      >
+        ❎ Data Belum terkirim!
+       </Box>
+      )}
+    </Box>
+  );
 }

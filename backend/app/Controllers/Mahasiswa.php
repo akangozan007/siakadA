@@ -62,6 +62,7 @@ class Mahasiswa extends ResourceController
          
     }
 
+    // get mahasiswa by email and id
     public function getMahasiswaByEmailAndID()
     {
 
@@ -148,6 +149,7 @@ class Mahasiswa extends ResourceController
                 $userPwd       = $json->password;
                 $userProdi     = $json->nama_prodi;
                 $userFakultas  = $json->nama_fakultas;
+                $userOldEmail = $json->oldemail;
     
                 $dataMahasiswa = [
                     "email"        => $userEmail,
@@ -159,7 +161,7 @@ class Mahasiswa extends ResourceController
                 ];
     
                 $mahasiswamodel = new MahasiswaModel();
-                $data = $mahasiswamodel->insertMahasiswaFromUser($userEmail, $dataMahasiswa);
+                $data = $mahasiswamodel->insertMahasiswaFromUser($userEmail, $dataMahasiswa,$userOldEmail);
     
                 return $this->respond(['message' => $data], 200);
     

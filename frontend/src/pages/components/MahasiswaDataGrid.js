@@ -17,6 +17,8 @@ export default function MahasiswaDataGrid() {
 // dom open close edit mahasiswa
   const [OpenDataMahasiswa, setOpenDataMahasiswa] = useState(null);
 
+  // get user old Email
+  const [ oldEmail, setOldEmail ] = useState(null);
 
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -156,8 +158,11 @@ export default function MahasiswaDataGrid() {
     console.log('Type of row:', typeof row);
     console.log('Keys in row:', Object.keys(row));
     console.log('row.id:', row.id);
+    console.log("email user : ", row.email);
     setOpenDataMahasiswa(row);
     setOpenEditMahasiswa(true);
+    // set oldemail
+    setOldEmail(row.email);
     
   };
 
@@ -204,7 +209,7 @@ export default function MahasiswaDataGrid() {
           backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi transparan hitam
         }}
       >
-      <EditMahasiswa data={OpenDataMahasiswa} close={handleCloseMhs} />
+      <EditMahasiswa data={OpenDataMahasiswa} Oldemail={oldEmail} close={handleCloseMhs} />
     </Backdrop>
 
       <Box>

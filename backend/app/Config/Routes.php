@@ -37,6 +37,10 @@ $routes->options('/api/mahasiswaUpdate', function () {
     return response()->setStatusCode(200);
 }, ['filter' => 'cors']);
 
+$routes->options('/api/dosenUpdate', function () {
+    return response()->setStatusCode(200);
+}, ['filter' => 'cors']);
+
 // $routes->options('/api/postMahasiswaByEmailAndID', function () {
 //     return response()->setStatusCode(200);
 // }, ['filter' => 'cors']);
@@ -63,7 +67,9 @@ $routes->get('/api/dashboard', 'User::index', ['filter' => 'cors']);
 $routes->get('/api/fakultas', 'Fakultas::getFakultas', ['filter' => 'cors']);
 $routes->get('/api/prodi', 'Prodi::getProdi', ['filter' => 'cors']);
 $routes->get('/api/mahasiswa', 'Mahasiswa::getMahasiswa', ['filter' => 'cors']);
+
 $routes->post('/api/mahasiswaUpdate', 'Mahasiswa::postMahasiswaByEmailAndID', ['filter' => 'cors']);
+$routes->post('/api/dosenUpdate', 'Dosen::postDosenByEmailAndID', ['filter' => 'cors']);
 
 $routes->get('/api/dosen', 'Dosen::getDosen', ['filter' => 'cors']);
 $routes->post('/api/upload', 'Upload::postFile', ['filter' => 'cors']);
@@ -71,6 +77,8 @@ $routes->post('/api/upload', 'Upload::postFile', ['filter' => 'cors']);
 
 // user mahasiswa by id and email
 $routes->get('/api/mahasiswaByIdEmail', 'Mahasiswa::getMahasiswaByEmailAndID', ['filter' => 'cors']);
+// user dosen by id and email
+$routes->get('/api/dosenByIdEmail', 'Dosen::getDosenByEmailAndID', ['filter' => 'cors']);
 
 
 
@@ -84,10 +92,12 @@ $routes->group('/api', ['filter' => 'auth'], static function ($routes) {
     $routes->get('/mahasiswa', 'Mahasiswa::getMahasiswa'); // Get /api/mahasiswa
     $routes->get('/mahasiswaByIdEmail', 'Mahasiswa::getMahasiswaByEmailAndID'); // Get /api/mahasiswaByIdEmail
     $routes->get('/dosen', 'Dosen::getDosen'); // Get /api/dosen
+    $routes->get('/dosenByIdEmail', 'Dosen::getDosenByEmailAndID'); // Get /api/dosen
     $routes->get('/prodi', 'Dosen::getProdi'); // Get /api/prodi
     $routes->post('/upload', 'Dosen::getProdi'); // Get /api/prodi
     // post
-    $routes->post('/mahasiswaUpdate', 'Mahasiswa::postMahasiswaByEmailAndID'); // Get /api/prodi
+    $routes->post('/mahasiswaUpdate', 'Mahasiswa::postMahasiswaByEmailAndID'); // post/api/mahasiswaUpdate
+    $routes->post('/dosenUpdate', 'Dosen::postDosenByEmailAndID'); // post/api/mahasiswaUpdate
 });
 
 
